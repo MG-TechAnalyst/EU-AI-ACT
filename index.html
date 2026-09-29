@@ -1,1273 +1,1887 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EU AI Act — AI Literacy Self-Audit</title>
-
-  <style>
-    :root {
-      --bg: #07111f;
-      --bg2: #0b1728;
-      --card: rgba(15, 29, 49, 0.88);
-      --card2: #101e32;
-      --border: #213653;
-      --text: #edf5ff;
-      --muted: #91a4bb;
-      --blue: #35a7ff;
-      --cyan: #54e6ff;
-      --green: #38d39f;
-      --red: #ff667d;
-      --yellow: #f4c95d;
-      --shadow: 0 20px 60px rgba(0,0,0,.28);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(53,167,255,.13), transparent 30%),
-        radial-gradient(circle at 85% 15%, rgba(84,230,255,.08), transparent 25%),
-        linear-gradient(180deg, #06101d 0%, #091525 100%);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    a {
-      color: var(--cyan);
-    }
-
-    .container {
-      width: min(1120px, calc(100% - 36px));
-      margin: auto;
-    }
-
-    header {
-      padding: 28px 0;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      background: rgba(5, 14, 25, .7);
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-    }
-
-    .logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--cyan));
-      color: #03111e;
-      font-weight: 900;
-      box-shadow: 0 0 30px rgba(53,167,255,.25);
-    }
-
-    .badge {
-      padding: 7px 11px;
-      border: 1px solid #254564;
-      border-radius: 999px;
-      color: #a9c4df;
-      font-size: 12px;
-      background: rgba(16,31,51,.7);
-    }
-
-    main {
-      padding: 72px 0 90px;
-    }
-
-    .hero {
-      text-align: center;
-      max-width: 850px;
-      margin: 0 auto 55px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      padding: 8px 13px;
-      border-radius: 999px;
-      color: var(--cyan);
-      border: 1px solid rgba(84,230,255,.2);
-      background: rgba(84,230,255,.06);
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(38px, 6vw, 68px);
-      line-height: 1;
-      letter-spacing: -.055em;
-      margin: 0 0 22px;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, #fff, #83dcff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-      margin: auto;
-      max-width: 720px;
-    }
-
-    .notice {
-      margin-top: 25px;
-      padding: 15px 18px;
-      border: 1px solid #28425e;
-      border-radius: 13px;
-      background: rgba(12, 27, 45, .8);
-      color: #b5c7db;
-      font-size: 13px;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .section {
-      margin-top: 28px;
-      scroll-margin-top: 100px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 18px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: 27px;
-      letter-spacing: -.03em;
-    }
-
-    .section-number {
-      color: var(--cyan);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .card {
-      background: linear-gradient(145deg, rgba(17,34,55,.94), rgba(9,22,38,.94));
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 26px;
-      box-shadow: var(--shadow);
-    }
-
-    .article-box {
-      border-left: 3px solid var(--cyan);
-    }
-
-    .article-box blockquote {
-      margin: 0;
-      color: #dce8f5;
-      line-height: 1.75;
-      font-size: 16px;
-    }
-
-    .article-box small {
-      display: block;
-      margin-top: 16px;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    label {
-      display: block;
-      color: #bdcde0;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      background: #081525;
-      border: 1px solid #27405d;
-      border-radius: 10px;
-      padding: 13px 14px;
-      color: var(--text);
-      outline: none;
-      font: inherit;
-      transition: .2s;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(53,167,255,.1);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 85px;
-    }
-
-    .field {
-      margin-bottom: 19px;
-    }
-
-    .full {
-      grid-column: 1 / -1;
-    }
-
-    .risk-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .risk-option {
-      position: relative;
-    }
-
-    .risk-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .risk-option label {
-      cursor: pointer;
-      display: block;
-      height: 100%;
-      padding: 17px;
-      border: 1px solid #28405b;
-      border-radius: 13px;
-      background: #0a1829;
-      transition: .2s;
-    }
-
-    .risk-option label:hover {
-      border-color: #3c648b;
-      transform: translateY(-1px);
-    }
-
-    .risk-option input:checked + label {
-      border-color: var(--cyan);
-      background: rgba(84,230,255,.07);
-      box-shadow: inset 0 0 0 1px rgba(84,230,255,.2);
-    }
-
-    .risk-name {
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .risk-description {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    .warning {
-      margin-top: 15px;
-      padding: 13px 15px;
-      border-radius: 10px;
-      background: rgba(244,201,93,.07);
-      border: 1px solid rgba(244,201,93,.22);
-      color: #d9c989;
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .checks {
-      display: grid;
-      gap: 14px;
-    }
-
-    .check {
-      padding: 18px;
-      border: 1px solid #263e59;
-      border-radius: 14px;
-      background: rgba(8,21,36,.7);
-    }
-
-    .check-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .check-title {
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    .check-help {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-      margin-top: 5px;
-    }
-
-    .toggle {
-      display: flex;
-      gap: 7px;
-      flex-shrink: 0;
-    }
-
-    .toggle button {
-      border: 1px solid #29425e;
-      background: #0b1b2e;
-      color: #91a7bd;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 11px;
-    }
-
-    .toggle button.active.pass {
-      background: rgba(56,211,159,.13);
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .toggle button.active.fail {
-      background: rgba(255,102,125,.12);
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .toggle button.active.na {
-      background: rgba(145,164,187,.12);
-      border-color: #8092a8;
-      color: #bdcad7;
-    }
-
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .stat {
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 18px;
-      background: #091727;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 28px;
-      font-weight: 900;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 4px;
-    }
-
-    .remediation-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .remediation-row input {
-      flex: 1;
-    }
-
-    .remove {
-      width: 44px;
-      border: 1px solid #3d2a34;
-      border-radius: 10px;
-      background: #21131a;
-      color: #ff8194;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    button.primary,
-    button.secondary {
-      border: 0;
-      padding: 13px 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 13px;
-      transition: .2s;
-    }
-
-    button.primary {
-      color: #03111d;
-      background: linear-gradient(135deg, var(--blue), var(--cyan));
-      box-shadow: 0 8px 30px rgba(53,167,255,.18);
-    }
-
-    button.primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 35px rgba(53,167,255,.28);
-    }
-
-    button.secondary {
-      color: #c8d6e5;
-      background: #102238;
-      border: 1px solid #2a4665;
-    }
-
-    button.secondary:hover {
-      border-color: #4a6684;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    #output {
-      display: none;
-    }
-
-    #output textarea {
-      min-height: 430px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.6;
-      color: #cce5f9;
-    }
-
-    .sources {
-      display: grid;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .source {
-      padding: 13px 15px;
-      border-radius: 10px;
-      border: 1px solid #203650;
-      background: #091727;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer {
-      text-align: center;
-      color: #667d95;
-      padding: 35px 0 55px;
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .success {
-      display: none;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(56,211,159,.25);
-      background: rgba(56,211,159,.08);
-      color: var(--green);
-      font-size: 12px;
-    }
-
-    @media (max-width: 800px) {
-      .grid,
-      .risk-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .summary {
-        grid-template-columns: 1fr;
-      }
-
-      .nav {
-        align-items: flex-start;
-      }
-
-      .badge {
-        display: none;
-      }
-
-      main {
-        padding-top: 45px;
-      }
-    }
-
-    @media print {
-      header,
-      .actions,
-      .hero,
-      .section:not(#generatedSection),
-      footer {
-        display: none !important;
-      }
-
-      body {
-        background: white;
-        color: black;
-      }
-
-      #generatedSection {
-        display: block !important;
-      }
-
-      #output {
-        display: block !important;
-      }
-
-      #output textarea {
-        color: black;
-        border: 0;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EU AI Act Article 4 AI Literacy Self-Audit">
+<title>AI Literacy Audit Lab — EU AI Act</title>
+
+<style>
+:root{
+  --bg:#050b14;
+  --bg2:#091321;
+  --panel:#0c1726;
+  --panel2:#101d2e;
+  --border:#1e344c;
+  --border2:#294765;
+  --text:#edf6ff;
+  --muted:#8fa5bc;
+  --blue:#4aa8ff;
+  --cyan:#63e6ff;
+  --green:#45d6a0;
+  --red:#ff687f;
+  --yellow:#f2c861;
+  --purple:#9d8cff;
+  --shadow:0 25px 80px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(74,168,255,.13),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(99,230,255,.07),transparent 25%),
+    linear-gradient(180deg,#040a12,#07111e 55%,#050c15);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
+
+a{
+  color:var(--cyan);
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1160px,calc(100% - 36px));
+  margin:auto;
+}
+
+/* HEADER */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(4,10,18,.78);
+  backdrop-filter:blur(18px);
+}
+
+.nav{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:850;
+  letter-spacing:-.02em;
+}
+
+.logo{
+  width:39px;
+  height:39px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  color:#03101c;
+  font-weight:950;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  box-shadow:0 0 35px rgba(74,168,255,.25);
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.status{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:7px 12px;
+  color:#9eb3c9;
+  background:#0b1726;
+  font-size:11px;
+  font-weight:750;
+}
+
+/* HERO */
+
+.hero{
+  padding:82px 0 55px;
+  text-align:center;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border:1px solid rgba(99,230,255,.2);
+  border-radius:999px;
+  background:rgba(99,230,255,.055);
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.eyebrow:before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+}
+
+h1{
+  max-width:900px;
+  margin:20px auto 20px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.065em;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#fff,#8be5ff);
+  color:transparent;
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+
+.hero p{
+  max-width:730px;
+  margin:auto;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.75;
+}
+
+.hero-note{
+  max-width:780px;
+  margin:25px auto 0;
+  padding:14px 18px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:rgba(11,24,40,.75);
+  color:#a9bacd;
+  font-size:12px;
+  line-height:1.65;
+}
+
+/* PROGRESS */
+
+.progress-wrap{
+  position:relative;
+  margin:0 0 45px;
+}
+
+.progress-line{
+  position:absolute;
+  top:17px;
+  left:5%;
+  right:5%;
+  height:2px;
+  background:#182b40;
+}
+
+.progress-fill{
+  position:absolute;
+  top:17px;
+  left:5%;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transition:.4s;
+}
+
+.progress{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+}
+
+.progress-step{
+  text-align:center;
+  color:#60768e;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.progress-dot{
+  width:34px;
+  height:34px;
+  margin:0 auto 9px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:1px solid #294058;
+  background:#081422;
+  color:#71869d;
+  font-size:11px;
+  font-weight:900;
+}
+
+.progress-step.active .progress-dot,
+.progress-step.done .progress-dot{
+  color:#03111b;
+  border-color:var(--cyan);
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+}
+
+.progress-step.active,
+.progress-step.done{
+  color:#b9d9ed;
+}
+
+/* SECTIONS */
+
+.section{
+  margin-bottom:25px;
+  scroll-margin-top:90px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:14px;
+}
+
+.section-number{
+  margin-bottom:5px;
+  color:var(--cyan);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+h2{
+  margin:0;
+  font-size:27px;
+  letter-spacing:-.035em;
+}
+
+.card{
+  padding:27px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:
+    linear-gradient(145deg,rgba(15,30,48,.96),rgba(7,18,31,.96));
+  box-shadow:var(--shadow);
+}
+
+/* ARTICLE */
+
+.article{
+  border-left:3px solid var(--cyan);
+}
+
+.article-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+  font-weight:850;
+}
+
+.article-badge{
+  padding:5px 8px;
+  border-radius:7px;
+  background:rgba(99,230,255,.1);
+  color:var(--cyan);
+  font-size:10px;
+  letter-spacing:.06em;
+}
+
+.article p{
+  color:#c5d5e5;
+  line-height:1.75;
+  font-size:14px;
+  margin:0;
+}
+
+.article-foot{
+  margin-top:17px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.06);
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* FORM */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#b9c9da;
+  font-size:11px;
+  font-weight:800;
+}
+
+input,select,textarea{
+  width:100%;
+  border:1px solid #27415d;
+  border-radius:11px;
+  outline:none;
+  background:#071321;
+  color:var(--text);
+  padding:13px 14px;
+  transition:.2s;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(74,168,255,.1);
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+/* RISK */
+
+.risk-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:11px;
+}
+
+.risk{
+  position:relative;
+}
+
+.risk input{
+  position:absolute;
+  opacity:0;
+}
+
+.risk label{
+  display:block;
+  min-height:125px;
+  padding:16px;
+  border:1px solid #27405b;
+  border-radius:14px;
+  background:#091625;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.risk label:hover{
+  border-color:#456582;
+  transform:translateY(-2px);
+}
+
+.risk input:checked+label{
+  border-color:var(--cyan);
+  background:rgba(99,230,255,.07);
+  box-shadow:inset 0 0 0 1px rgba(99,230,255,.12);
+}
+
+.risk-name{
+  margin-bottom:7px;
+  font-weight:850;
+}
+
+.risk-desc{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.caution{
+  margin-top:14px;
+  padding:13px 15px;
+  border-radius:11px;
+  border:1px solid rgba(242,200,97,.2);
+  background:rgba(242,200,97,.055);
+  color:#cdbd83;
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* CHECKS */
+
+.checks{
+  display:grid;
+  gap:12px;
+}
+
+.check{
+  padding:18px;
+  border:1px solid #223b55;
+  border-radius:15px;
+  background:#081524;
+  transition:.25s;
+}
+
+.check:hover{
+  border-color:#31516f;
+}
+
+.check-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.check-left{
+  display:flex;
+  gap:12px;
+}
+
+.check-icon{
+  width:34px;
+  height:34px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#10253a;
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:900;
+}
+
+.check-title{
+  font-size:14px;
+  font-weight:850;
+}
+
+.check-help{
+  margin-top:4px;
+  max-width:650px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.55;
+}
+
+.toggle{
+  display:flex;
+  gap:5px;
+  flex-shrink:0;
+}
+
+.toggle button{
+  border:1px solid #29435d;
+  border-radius:8px;
+  padding:7px 10px;
+  background:#0b1a2b;
+  color:#8095aa;
+  font-size:10px;
+  font-weight:900;
+}
+
+.toggle button.active.pass{
+  border-color:var(--green);
+  background:rgba(69,214,160,.1);
+  color:var(--green);
+}
+
+.toggle button.active.fail{
+  border-color:var(--red);
+  background:rgba(255,104,127,.1);
+  color:var(--red);
+}
+
+.toggle button.active.na{
+  border-color:#8295a9;
+  background:rgba(130,149,169,.1);
+  color:#b7c4d0;
+}
+
+.check textarea{
+  min-height:66px;
+  margin-top:12px;
+  font-size:12px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:14px;
+  margin-top:15px;
+}
+
+.score-card{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#081524;
+}
+
+.score-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.score-label{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.score{
+  margin-top:4px;
+  font-size:36px;
+  font-weight:950;
+  letter-spacing:-.05em;
+}
+
+.bar{
+  height:7px;
+  margin-top:13px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#15273a;
+}
+
+.bar-fill{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transition:.4s;
+}
+
+.mini-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.mini{
+  padding:16px 10px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#081524;
+  text-align:center;
+}
+
+.mini strong{
+  display:block;
+  font-size:22px;
+}
+
+.mini span{
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+/* REMEDIATION */
+
+.remediation-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:9px;
+}
+
+.remediation-row input{
+  flex:1;
+}
+
+.remove{
+  width:43px;
+  border:1px solid #402735;
+  border-radius:10px;
+  background:#1b1118;
+  color:var(--red);
+  font-size:17px;
+}
+
+.add{
+  border:1px solid #2b4966;
+  border-radius:9px;
+  padding:9px 12px;
+  background:#0d2034;
+  color:#a9c3da;
+  font-size:11px;
+  font-weight:800;
+}
+
+/* BUTTONS */
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:20px;
+}
+
+.btn{
+  border-radius:10px;
+  padding:12px 16px;
+  border:1px solid #294762;
+  background:#102239;
+  color:#c7d8e8;
+  font-size:11px;
+  font-weight:850;
+}
+
+.btn:hover{
+  border-color:#52718e;
+}
+
+.btn-primary{
+  border:0;
+  color:#03111b;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  box-shadow:0 8px 30px rgba(74,168,255,.18);
+}
+
+.btn-primary:hover{
+  transform:translateY(-1px);
+}
+
+/* OUTPUT */
+
+.output{
+  display:none;
+  margin-top:20px;
+}
+
+.output textarea{
+  min-height:480px;
+  font-family:"SFMono-Regular",Consolas,monospace;
+  font-size:11px;
+  line-height:1.65;
+  color:#c9e5f8;
+}
+
+.copy-message{
+  display:none;
+  margin-top:10px;
+  padding:10px 13px;
+  border-radius:9px;
+  background:rgba(69,214,160,.08);
+  border:1px solid rgba(69,214,160,.2);
+  color:var(--green);
+  font-size:11px;
+}
+
+/* SOURCES */
+
+.sources{
+  display:grid;
+  gap:9px;
+}
+
+.source{
+  padding:14px;
+  border:1px solid #1e354d;
+  border-radius:11px;
+  background:#081524;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.source strong{
+  color:#c8d8e7;
+}
+
+/* FOOTER */
+
+footer{
+  padding:45px 0 65px;
+  color:#637991;
+  text-align:center;
+  font-size:10px;
+  line-height:1.7;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+  .grid,
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .risk-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .check-top{
+    flex-direction:column;
+  }
+
+  .toggle{
+    width:100%;
+  }
+
+  .toggle button{
+    flex:1;
+  }
+}
+
+@media(max-width:560px){
+  .container{
+    width:min(100% - 24px,1160px);
+  }
+
+  .hero{
+    padding-top:55px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .risk-grid{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    gap:12px;
+  }
+
+  .progress-step{
+    font-size:8px;
+  }
+
+  .progress-dot{
+    width:29px;
+    height:29px;
+  }
+
+  .progress-line,
+  .progress-fill{
+    top:14px;
+  }
+}
+
+@media print{
+  .header,
+  .hero,
+  .progress-wrap,
+  .section:not(#export),
+  footer{
+    display:none!important;
+  }
+
+  body{
+    background:white;
+    color:black;
+  }
+
+  #export{
+    display:block!important;
+  }
+
+  .card{
+    box-shadow:none;
+    border:0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<header class="header">
   <div class="container nav">
     <div class="brand">
       <div class="logo">AI</div>
-      <span>AI Literacy Self-Audit</span>
+      <span>AI Literacy Audit Lab</span>
     </div>
-    <div class="badge">EU AI Act · Article 4 · 2026</div>
+
+    <div class="header-right">
+      <div class="status">EU AI ACT · ARTICLE 4</div>
+    </div>
   </div>
 </header>
 
+
 <main>
-  <div class="container">
 
-    <section class="hero">
-      <div class="eyebrow">EU AI ACT • PRACTICAL AUDIT</div>
+<div class="container">
 
-      <h1>
-        Audit your <span class="gradient">AI workflow.</span>
-      </h1>
+<!-- HERO -->
 
-      <p>
-        A simple educational tool to document an AI workflow, perform a
-        five-point hygiene check, identify remediation actions and generate
-        a shareable Markdown audit.
-      </p>
+<section class="hero">
 
-      <div class="notice">
-        <strong>Important:</strong> Do not enter real customer names, email
-        addresses, passwords, confidential documents, health information or
-        other sensitive personal data into this page. Everything entered here
-        stays in your browser and is not sent to a server by this tool.
-      </div>
-    </section>
+  <div class="eyebrow">
+    Practical AI Governance Exercise
+  </div>
 
-    <!-- ARTICLE 4 -->
-    <section class="section" id="article4">
-      <div class="section-title">
-        <div>
-          <div class="section-number">01 · Legal context</div>
-          <h2>What Article 4 asks for</h2>
-        </div>
-      </div>
+  <h1>
+    Understand your AI.<br>
+    <span class="gradient">Audit your workflow.</span>
+  </h1>
 
-      <div class="card article-box">
-        <blockquote>
-          Article 4 requires providers and deployers of AI systems to take
-          measures to support the development of AI literacy among their staff
-          and other persons dealing with the operation and use of AI systems
-          on their behalf. The measures should take account of technical
-          knowledge, experience, education and training, the context of use,
-          and the people or groups on whom the systems are used.
-        </blockquote>
+  <p>
+    A practical self-audit for documenting an AI workflow,
+    identifying risks, applying the five-point hygiene check,
+    recording remediation and demonstrating AI-literacy practice.
+  </p>
 
-        <small>
-          Current Article 4 wording reflects the July 2026 amendment.
-          The amended provision does <strong>not</strong> require organisations
-          to guarantee a specific level of AI literacy for every individual.
-        </small>
-      </div>
-    </section>
+  <div class="hero-note">
+    <strong>Privacy first:</strong>
+    Do not enter real customer names, email addresses, passwords,
+    confidential documents or sensitive personal information.
+    This page performs everything locally in your browser and does
+    not send your audit information to a server.
+  </div>
 
-    <!-- WORKFLOW -->
-    <section class="section" id="workflow">
-      <div class="section-title">
-        <div>
-          <div class="section-number">02 · Workflow</div>
-          <h2>Describe the AI workflow</h2>
-        </div>
-      </div>
+</section>
 
-      <div class="card">
-        <div class="grid">
 
-          <div class="field">
-            <label for="workflow">Workflow name</label>
-            <input
-              id="workflow"
-              value="Customer support drafting with ChatGPT"
-              placeholder="e.g. Marketing emails with ChatGPT"
-            />
-          </div>
+<!-- PROGRESS -->
 
-          <div class="field">
-            <label for="tool">AI system / tool</label>
-            <input
-              id="tool"
-              value="ChatGPT"
-              placeholder="e.g. ChatGPT, Copilot, Gemini"
-            />
-          </div>
+<div class="progress-wrap">
 
-          <div class="field">
-            <label for="owner">Workflow owner</label>
-            <input
-              id="owner"
-              value="Customer-support lead"
-              placeholder="e.g. Marketing lead"
-            />
-          </div>
+  <div class="progress-line"></div>
+  <div class="progress-fill" id="progressFill"></div>
 
-          <div class="field">
-            <label for="frequency">How often is it used?</label>
-            <select id="frequency">
-              <option>Occasionally</option>
-              <option selected>Daily</option>
-              <option>Weekly</option>
-              <option>Continuously / at scale</option>
-            </select>
-          </div>
+  <div class="progress">
 
-          <div class="field">
-            <label for="data">Type of information involved</label>
-            <select id="data">
-              <option>Public information</option>
-              <option>Internal business information</option>
-              <option selected>Customer personal data</option>
-              <option>Special-category / highly sensitive data</option>
-            </select>
-          </div>
+    <div class="progress-step active" id="p1">
+      <div class="progress-dot">1</div>
+      Context
+    </div>
 
-          <div class="field">
-            <label for="affected">Who may be affected?</label>
-            <input
-              id="affected"
-              value="Customers"
-              placeholder="e.g. Customers, employees, applicants"
-            />
-          </div>
+    <div class="progress-step" id="p2">
+      <div class="progress-dot">2</div>
+      Workflow
+    </div>
 
-          <div class="field full">
-            <label for="purpose">What does the AI actually do?</label>
-            <textarea id="purpose">Drafts customer-support replies. A human reviews the output before sending it.</textarea>
-          </div>
+    <div class="progress-step" id="p3">
+      <div class="progress-dot">3</div>
+      Risk
+    </div>
 
-        </div>
-      </div>
-    </section>
+    <div class="progress-step" id="p4">
+      <div class="progress-dot">4</div>
+      Hygiene
+    </div>
 
-    <!-- RISK -->
-    <section class="section" id="risk">
-      <div class="section-title">
-        <div>
-          <div class="section-number">03 · Preliminary classification</div>
-          <h2>Choose a risk tier</h2>
-        </div>
-      </div>
-
-      <div class="card">
-
-        <div class="risk-grid">
-
-          <div class="risk-option">
-            <input type="radio" name="risk" id="unacceptable" value="unacceptable" />
-            <label for="unacceptable">
-              <div class="risk-name">Unacceptable</div>
-              <div class="risk-description">
-                AI practices prohibited by the AI Act.
-              </div>
-            </label>
-          </div>
-
-          <div class="risk-option">
-            <input type="radio" name="risk" id="high" value="high" />
-            <label for="high">
-              <div class="risk-name">High-risk</div>
-              <div class="risk-description">
-                Certain regulated uses listed by the AI Act.
-              </div>
-            </label>
-          </div>
-
-          <div class="risk-option">
-            <input type="radio" name="risk" id="limited" value="limited" />
-            <label for="limited">
-              <div class="risk-name">Limited-risk</div>
-              <div class="risk-description">
-                Certain systems with specific transparency obligations.
-              </div>
-            </label>
-          </div>
-
-          <div class="risk-option">
-            <input type="radio" name="risk" id="minimal" value="minimal" checked />
-            <label for="minimal">
-              <div class="risk-name">Minimal</div>
-              <div class="risk-description">
-                Lower-risk applications without a specific AI Act risk
-                classification in the categories above.
-              </div>
-            </label>
-          </div>
-
-        </div>
-
-        <div class="warning">
-          <strong>Educational classification only.</strong>
-          This selection is a preliminary description for this audit. The
-          five-point hygiene check does not itself determine an AI system's
-          legal risk category. The actual classification depends on the
-          system's intended purpose, use and the applicable provisions of the
-          AI Act.
-        </div>
-
-      </div>
-    </section>
-
-    <!-- HYGIENE -->
-    <section class="section" id="hygiene">
-      <div class="section-title">
-        <div>
-          <div class="section-number">04 · Five-point hygiene check</div>
-          <h2>Check the workflow</h2>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="checks">
-
-          <div class="check" data-check="bias">
-            <div class="check-top">
-              <div>
-                <div class="check-title">1. Bias</div>
-                <div class="check-help">
-                  Have you considered whether the workflow could produce
-                  unfair or systematically different outcomes?
-                </div>
-              </div>
-
-              <div class="toggle">
-                <button class="pass" onclick="setCheck('bias','PASS',this)">PASS</button>
-                <button class="fail" onclick="setCheck('bias','FAIL',this)">FAIL</button>
-                <button class="na active" onclick="setCheck('bias','N/A',this)">N/A</button>
-              </div>
-            </div>
-
-            <textarea
-              id="evidence-bias"
-              placeholder="Evidence / explanation"
-            >Human review is performed before customer replies are sent.</textarea>
-          </div>
-
-
-          <div class="check" data-check="privacy">
-            <div class="check-top">
-              <div>
-                <div class="check-title">2. Privacy</div>
-                <div class="check-help">
-                  Is personal or confidential information protected and
-                  minimised before it is entered into the AI system?
-                </div>
-              </div>
-
-              <div class="toggle">
-                <button class="pass" onclick="setCheck('privacy','PASS',this)">PASS</button>
-                <button class="fail active" onclick="setCheck('privacy','FAIL',this)">FAIL</button>
-                <button class="na" onclick="setCheck('privacy','N/A',this)">N/A</button>
-              </div>
-            </div>
-
-            <textarea
-              id="evidence-privacy"
-              placeholder="Evidence / explanation"
-            >Raw customer information may be included in prompts.</textarea>
-          </div>
-
-
-          <div class="check" data-check="consent">
-            <div class="check-top">
-              <div>
-                <div class="check-title">3. Consent / permission</div>
-                <div class="check-help">
-                  Have you checked the relevant permission, notice or lawful
-                  basis for using the information in this workflow?
-                </div>
-              </div>
-
-              <div class="toggle">
-                <button class="pass active" onclick="setCheck('consent','PASS',this)">PASS</button>
-                <button class="fail" onclick="setCheck('consent','FAIL',this)">FAIL</button>
-                <button class="na" onclick="setCheck('consent','N/A',this)">N/A</button>
-              </div>
-            </div>
-
-            <textarea
-              id="evidence-consent"
-              placeholder="Evidence / explanation"
-            >The organisation uses an approved customer-data workflow.</textarea>
-          </div>
-
-
-          <div class="check" data-check="attribution">
-            <div class="check-top">
-              <div>
-                <div class="check-title">4. Attribution / human ownership</div>
-                <div class="check-help">
-                  Is there a clearly responsible person who reviews and owns
-                  the final output?
-                </div>
-              </div>
-
-              <div class="toggle">
-                <button class="pass active" onclick="setCheck('attribution','PASS',this)">PASS</button>
-                <button class="fail" onclick="setCheck('attribution','FAIL',this)">FAIL</button>
-                <button class="na" onclick="setCheck('attribution','N/A',this)">N/A</button>
-              </div>
-            </div>
-
-            <textarea
-              id="evidence-attribution"
-              placeholder="Evidence / explanation"
-            >A customer-support employee reviews the response before sending it.</textarea>
-          </div>
-
-
-          <div class="check" data-check="transparency">
-            <div class="check-top">
-              <div>
-                <div class="check-title">5. Transparency</div>
-                <div class="check-help">
-                  Have you considered whether people need to be informed about
-                  the AI's role in this particular workflow?
-                </div>
-              </div>
-
-              <div class="toggle">
-                <button class="pass" onclick="setCheck('transparency','PASS',this)">PASS</button>
-                <button class="fail active" onclick="setCheck('transparency','FAIL',this)">FAIL</button>
-                <button class="na" onclick="setCheck('transparency','N/A',this)">N/A</button>
-              </div>
-            </div>
-
-            <textarea
-              id="evidence-transparency"
-              placeholder="Evidence / explanation"
-            >Customers are not currently informed that AI assists with drafting.</textarea>
-          </div>
-
-        </div>
-
-        <div class="summary">
-          <div class="stat">
-            <div class="stat-number" id="passCount">2</div>
-            <div class="stat-label">PASS</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-number" id="failCount">2</div>
-            <div class="stat-label">FAIL</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-number" id="naCount">1</div>
-            <div class="stat-label">N/A</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REMEDIATION -->
-    <section class="section" id="remediation">
-      <div class="section-title">
-        <div>
-          <div class="section-number">05 · Remediation</div>
-          <h2>What will you change?</h2>
-        </div>
-      </div>
-
-      <div class="card">
-
-        <div id="remediationList">
-
-          <div class="remediation-row">
-            <input
-              value="Strip or minimise customer personal data before prompting the AI system."
-            />
-            <button class="remove" onclick="removeRemediation(this)">×</button>
-          </div>
-
-          <div class="remediation-row">
-            <input
-              value="Create clear internal guidance for staff on approved AI use and human review."
-            />
-            <button class="remove" onclick="removeRemediation(this)">×</button>
-          </div>
-
-        </div>
-
-        <button class="secondary" onclick="addRemediation()">
-          + Add remediation
-        </button>
-
-      </div>
-    </section>
-
-    <!-- TRAINING -->
-    <section class="section" id="training">
-      <div class="section-title">
-        <div>
-          <div class="section-number">06 · AI literacy evidence</div>
-          <h2>Document the learning measure</h2>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="grid">
-
-          <div class="field">
-            <label for="training">Training / guidance provided</label>
-            <select id="training">
-              <option>None yet</option>
-              <option selected>Informal guidance</option>
-              <option>Formal AI training</option>
-              <option>Formal training + written policy</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="review">Review frequency</label>
-            <select id="review">
-              <option>Not scheduled</option>
-              <option selected>Every 6 months</option>
-              <option>Annually</option>
-              <option>After material workflow changes</option>
-              <option>Continuous governance process</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <label for="literacy">What should staff understand before using this workflow?</label>
-            <textarea id="literacy">Staff should understand appropriate data handling, limitations of AI-generated content, human review requirements, escalation procedures and the risks relevant to customers.</textarea>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- GENERATE -->
-    <section class="section" id="generatedSection">
-      <div class="section-title">
-        <div>
-          <div class="section-number">07 · Export</div>
-          <h2>Generate your audit</h2>
-        </div>
-      </div>
-
-      <div class="card">
-
-        <p style="color:var(--muted); line-height:1.65; font-size:14px;">
-          Generate a Markdown file containing the information above. You can
-          paste the resulting <code>audit.md</code> into GitHub, GitHub Pages,
-          a Gist, Notion or another public/private documentation system.
-        </p>
-
-        <div class="actions">
-          <button class="primary" onclick="generateAudit()">
-            Generate audit.md
-          </button>
-
-          <button class="secondary" onclick="downloadAudit()">
-            Download audit.md
-          </button>
-
-          <button class="secondary" onclick="copyAudit()">
-            Copy audit
-          </button>
-
-          <button class="secondary" onclick="window.print()">
-            Print / Save PDF
-          </button>
-
-          <button class="secondary" onclick="resetAudit()">
-            Reset
-          </button>
-        </div>
-
-        <div class="success" id="success">
-          Audit copied to your clipboard.
-        </div>
-
-        <div id="output" style="margin-top:22px;">
-          <label for="auditOutput">Generated audit.md</label>
-          <textarea id="auditOutput" readonly></textarea>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SOURCES -->
-    <section class="section">
-      <div class="section-title">
-        <div>
-          <div class="section-number">08 · Sources</div>
-          <h2>Official references</h2>
-        </div>
-      </div>
-
-      <div class="card">
-
-        <div class="sources">
-
-          <div class="source">
-            <strong>European Commission — AI talent, skills and literacy</strong><br>
-            Current information about Article 4 and the July 2026 amendment.<br>
-            <a
-              href="https://digital-strategy.ec.europa.eu/en/policies/ai-talent-skills-and-literacy"
-              target="_blank"
-              rel="noopener"
-            >
-              Open European Commission source →
-            </a>
-          </div>
-
-          <div class="source">
-            <strong>EUR-Lex — Regulation (EU) 2024/1689</strong><br>
-            Official consolidated text of the EU AI Act, including current Article 4.<br>
-            <a
-              href="https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1790274055294&uri=CELEX%3A02024R1689-20260727"
-              target="_blank"
-              rel="noopener"
-            >
-              Open EUR-Lex source →
-            </a>
-          </div>
-
-          <div class="source">
-            <strong>European Commission — AI Literacy Questions & Answers</strong><br>
-            Practical information about Article 4, documentation and enforcement.<br>
-            <a
-              href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
-              target="_blank"
-              rel="noopener"
-            >
-              Open Commission Q&A →
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
+    <div class="progress-step" id="p5">
+      <div class="progress-dot">5</div>
+      Action
+    </div>
 
   </div>
+</div>
+
+
+<!-- ARTICLE 4 -->
+
+<section class="section">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">01 · Context</div>
+      <h2>Why this audit exists</h2>
+    </div>
+  </div>
+
+  <div class="card article">
+
+    <div class="article-title">
+      <span class="article-badge">ARTICLE 4</span>
+      AI literacy
+    </div>
+
+    <p>
+      Under Article 4 of the EU AI Act, providers and deployers of AI
+      systems are required to take measures to support the development
+      of AI literacy among staff and other people dealing with the
+      operation and use of AI systems on their behalf.
+    </p>
+
+    <div class="article-foot">
+      The measures should take account of relevant technical knowledge,
+      experience, education and training, the context in which the AI
+      system is used, and the people or groups on whom the system is used.
+      This page is an educational self-audit rather than a legal
+      determination of compliance.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WORKFLOW -->
+
+<section class="section" id="workflow">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">02 · Workflow</div>
+      <h2>Describe your AI workflow</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="grid">
+
+      <div class="field">
+        <label>WORKFLOW NAME</label>
+        <input
+          id="workflow"
+          value="Customer support drafting with ChatGPT"
+          placeholder="e.g. Marketing emails with ChatGPT"
+        >
+      </div>
+
+      <div class="field">
+        <label>AI SYSTEM</label>
+        <input
+          id="tool"
+          value="ChatGPT"
+          placeholder="e.g. ChatGPT, Copilot, Gemini"
+        >
+      </div>
+
+      <div class="field">
+        <label>OWNER</label>
+        <input
+          id="owner"
+          value="Customer-support lead"
+          placeholder="Person responsible for the workflow"
+        >
+      </div>
+
+      <div class="field">
+        <label>FREQUENCY</label>
+        <select id="frequency">
+          <option>Occasionally</option>
+          <option selected>Daily</option>
+          <option>Weekly</option>
+          <option>Continuously / at scale</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>INFORMATION INVOLVED</label>
+        <select id="data">
+          <option>Public information</option>
+          <option>Internal business information</option>
+          <option selected>Customer personal data</option>
+          <option>Special-category / highly sensitive data</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>PEOPLE POTENTIALLY AFFECTED</label>
+        <input
+          id="affected"
+          value="Customers"
+          placeholder="e.g. Customers, employees, applicants"
+        >
+      </div>
+
+      <div class="field full">
+        <label>WHAT DOES THE AI ACTUALLY DO?</label>
+        <textarea id="purpose">Drafts customer-support replies. A human reviews the AI-generated draft before sending it.</textarea>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- RISK -->
+
+<section class="section" id="risk">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">03 · Classification</div>
+      <h2>Preliminary risk classification</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="risk-grid">
+
+      <div class="risk">
+        <input type="radio" name="risk" id="r1" value="unacceptable">
+        <label for="r1">
+          <div class="risk-name">Unacceptable</div>
+          <div class="risk-desc">
+            AI practices prohibited by the EU AI Act.
+          </div>
+        </label>
+      </div>
+
+      <div class="risk">
+        <input type="radio" name="risk" id="r2" value="high">
+        <label for="r2">
+          <div class="risk-name">High-risk</div>
+          <div class="risk-desc">
+            Certain regulated AI uses subject to specific requirements.
+          </div>
+        </label>
+      </div>
+
+      <div class="risk">
+        <input type="radio" name="risk" id="r3" value="limited">
+        <label for="r3">
+          <div class="risk-name">Limited-risk</div>
+          <div class="risk-desc">
+            Certain AI systems with transparency-related obligations.
+          </div>
+        </label>
+      </div>
+
+      <div class="risk">
+        <input type="radio" name="risk" id="r4" value="minimal" checked>
+        <label for="r4">
+          <div class="risk-name">Minimal</div>
+          <div class="risk-desc">
+            Lower-risk use without a specific classification above.
+          </div>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="caution">
+      <strong>Important:</strong>
+      This is a preliminary educational classification.
+      The five-point hygiene check does not itself determine the
+      legal risk category of an AI system under the EU AI Act.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HYGIENE -->
+
+<section class="section" id="hygiene">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">04 · Hygiene</div>
+      <h2>Five-point hygiene check</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="checks">
+
+
+      <!-- BIAS -->
+
+      <div class="check">
+
+        <div class="check-top">
+
+          <div class="check-left">
+            <div class="check-icon">01</div>
+
+            <div>
+              <div class="check-title">Bias</div>
+
+              <div class="check-help">
+                Have you considered whether the workflow could produce
+                unfair or systematically different outcomes?
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <button class="pass"
+              onclick="setCheck('bias','PASS',this)">PASS</button>
+
+            <button class="fail"
+              onclick="setCheck('bias','FAIL',this)">FAIL</button>
+
+            <button class="na active"
+              onclick="setCheck('bias','N/A',this)">N/A</button>
+          </div>
+
+        </div>
+
+        <textarea id="evidence-bias">A human reviews customer replies before they are sent.</textarea>
+
+      </div>
+
+
+      <!-- PRIVACY -->
+
+      <div class="check">
+
+        <div class="check-top">
+
+          <div class="check-left">
+            <div class="check-icon">02</div>
+
+            <div>
+              <div class="check-title">Privacy</div>
+
+              <div class="check-help">
+                Is personal or confidential information protected and
+                minimised before being entered into the AI system?
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <button class="pass"
+              onclick="setCheck('privacy','PASS',this)">PASS</button>
+
+            <button class="fail active"
+              onclick="setCheck('privacy','FAIL',this)">FAIL</button>
+
+            <button class="na"
+              onclick="setCheck('privacy','N/A',this)">N/A</button>
+          </div>
+
+        </div>
+
+        <textarea id="evidence-privacy">Customer information may currently be included in prompts.</textarea>
+
+      </div>
+
+
+      <!-- CONSENT -->
+
+      <div class="check">
+
+        <div class="check-top">
+
+          <div class="check-left">
+            <div class="check-icon">03</div>
+
+            <div>
+              <div class="check-title">Consent / permission</div>
+
+              <div class="check-help">
+                Have you checked the relevant permission, notice or
+                lawful basis for the information used in this workflow?
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <button class="pass active"
+              onclick="setCheck('consent','PASS',this)">PASS</button>
+
+            <button class="fail"
+              onclick="setCheck('consent','FAIL',this)">FAIL</button>
+
+            <button class="na"
+              onclick="setCheck('consent','N/A',this)">N/A</button>
+          </div>
+
+        </div>
+
+        <textarea id="evidence-consent">The organisation uses an approved customer-data workflow.</textarea>
+
+      </div>
+
+
+      <!-- ATTRIBUTION -->
+
+      <div class="check">
+
+        <div class="check-top">
+
+          <div class="check-left">
+            <div class="check-icon">04</div>
+
+            <div>
+              <div class="check-title">Attribution / human ownership</div>
+
+              <div class="check-help">
+                Is there a clearly responsible person who reviews and
+                owns the final output?
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <button class="pass active"
+              onclick="setCheck('attribution','PASS',this)">PASS</button>
+
+            <button class="fail"
+              onclick="setCheck('attribution','FAIL',this)">FAIL</button>
+
+            <button class="na"
+              onclick="setCheck('attribution','N/A',this)">N/A</button>
+          </div>
+
+        </div>
+
+        <textarea id="evidence-attribution">A customer-support employee reviews the response before sending it.</textarea>
+
+      </div>
+
+
+      <!-- TRANSPARENCY -->
+
+      <div class="check">
+
+        <div class="check-top">
+
+          <div class="check-left">
+            <div class="check-icon">05</div>
+
+            <div>
+              <div class="check-title">Transparency</div>
+
+              <div class="check-help">
+                Have you considered whether people need to be informed
+                about the AI's role in this particular workflow?
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <button class="pass"
+              onclick="setCheck('transparency','PASS',this)">PASS</button>
+
+            <button class="fail active"
+              onclick="setCheck('transparency','FAIL',this)">FAIL</button>
+
+            <button class="na"
+              onclick="setCheck('transparency','N/A',this)">N/A</button>
+          </div>
+
+        </div>
+
+        <textarea id="evidence-transparency">The current workflow does not document how customers are informed about AI assistance.</textarea>
+
+      </div>
+
+    </div>
+
+
+    <!-- LIVE SCORE -->
+
+    <div class="dashboard">
+
+      <div class="score-card">
+
+        <div class="score-head">
+          <div class="score-label">Hygiene status</div>
+          <div id="statusText" style="color:var(--yellow);font-size:11px;font-weight:850;">
+            Needs attention
+          </div>
+        </div>
+
+        <div class="score" id="score">40%</div>
+
+        <div class="bar">
+          <div class="bar-fill" id="scoreBar"></div>
+        </div>
+
+      </div>
+
+      <div class="mini-stats">
+
+        <div class="mini">
+          <strong id="passCount">2</strong>
+          <span>Pass</span>
+        </div>
+
+        <div class="mini">
+          <strong id="failCount">2</strong>
+          <span>Fail</span>
+        </div>
+
+        <div class="mini">
+          <strong id="naCount">1</strong>
+          <span>N/A</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REMEDIATION -->
+
+<section class="section" id="action">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">05 · Action</div>
+      <h2>Remediation plan</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <p style="margin-top:0;color:var(--muted);font-size:12px;line-height:1.6;">
+      Record practical changes that would reduce the identified risks
+      or improve AI-literacy practice.
+    </p>
+
+    <div id="remediationList">
+
+      <div class="remediation-row">
+        <input value="Strip or minimise customer personal data before prompting the AI system.">
+        <button class="remove" onclick="removeRemediation(this)">×</button>
+      </div>
+
+      <div class="remediation-row">
+        <input value="Create clear internal guidance for staff covering approved AI use and human review.">
+        <button class="remove" onclick="removeRemediation(this)">×</button>
+      </div>
+
+      <div class="remediation-row">
+        <input value="Document when AI-assisted outputs require additional human review or escalation.">
+        <button class="remove" onclick="removeRemediation(this)">×</button>
+      </div>
+
+    </div>
+
+    <button class="add" onclick="addRemediation()">
+      + Add remediation
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- AI LITERACY -->
+
+<section class="section">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">06 · AI literacy</div>
+      <h2>Document the learning measure</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="grid">
+
+      <div class="field">
+
+        <label>TRAINING / GUIDANCE</label>
+
+        <select id="training">
+          <option>None yet</option>
+          <option selected>Informal guidance</option>
+          <option>Formal AI training</option>
+          <option>Formal training + written policy</option>
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>REVIEW FREQUENCY</label>
+
+        <select id="review">
+          <option>Not scheduled</option>
+          <option selected>Every 6 months</option>
+          <option>Annually</option>
+          <option>After material workflow changes</option>
+          <option>Continuous governance process</option>
+        </select>
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>WHAT SHOULD STAFF UNDERSTAND?</label>
+
+        <textarea id="literacy">Staff should understand appropriate data handling, limitations of AI-generated content, human review requirements, escalation procedures and risks relevant to customers.</textarea>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EXPORT -->
+
+<section class="section" id="export">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">07 · Document</div>
+      <h2>Generate your audit</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <p style="margin-top:0;color:var(--muted);font-size:13px;line-height:1.65;">
+      Your completed audit can be exported as Markdown.
+      You can then publish it using GitHub Pages, a GitHub repository,
+      a Gist, Notion or another platform accepted by your course.
+    </p>
+
+    <div class="actions">
+
+      <button class="btn btn-primary" onclick="generateAudit()">
+        Generate audit.md
+      </button>
+
+      <button class="btn" onclick="copyAudit()">
+        Copy audit
+      </button>
+
+      <button class="btn" onclick="downloadAudit()">
+        Download audit.md
+      </button>
+
+      <button class="btn" onclick="window.print()">
+        Print / Save PDF
+      </button>
+
+      <button class="btn" onclick="resetAudit()">
+        Reset
+      </button>
+
+    </div>
+
+    <div class="copy-message" id="copyMessage">
+      ✓ Audit copied to clipboard.
+    </div>
+
+    <div class="output" id="output">
+
+      <label style="display:block;margin-bottom:8px;color:#a9bfd3;font-size:11px;font-weight:800;">
+        GENERATED audit.md
+      </label>
+
+      <textarea id="auditOutput" readonly></textarea>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SOURCES -->
+
+<section class="section">
+
+  <div class="section-head">
+    <div>
+      <div class="section-number">08 · References</div>
+      <h2>Official sources</h2>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="sources">
+
+      <div class="source">
+        <strong>European Commission — AI talent, skills and literacy</strong><br>
+        Current information on AI literacy and Article 4.
+        <br>
+        <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-talent-skills-and-literacy"
+           target="_blank" rel="noopener">
+          European Commission →
+        </a>
+      </div>
+
+      <div class="source">
+        <strong>EUR-Lex — EU AI Act</strong><br>
+        Official text of Regulation (EU) 2024/1689.
+        <br>
+        <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"
+           target="_blank" rel="noopener">
+          EUR-Lex →
+        </a>
+      </div>
+
+      <div class="source">
+        <strong>European Commission — AI Literacy Q&A</strong><br>
+        Commission guidance and answers concerning Article 4.
+        <br>
+        <a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+           target="_blank" rel="noopener">
+          Commission Q&A →
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</div>
 </main>
+
 
 <footer>
   <div class="container">
-    <strong>EU AI Act AI Literacy Self-Audit</strong><br><br>
-    Educational tool based on publicly available EU AI Act materials.
+    <strong>AI Literacy Audit Lab</strong><br>
+    EU AI Act · Article 4 · Educational self-audit<br><br>
     This is general education on the EU AI Act, not legal advice.
   </div>
 </footer>
 
 
 <script>
-  const checks = {
-    bias: "N/A",
-    privacy: "FAIL",
-    consent: "PASS",
-    attribution: "PASS",
-    transparency: "FAIL"
-  };
 
-  const auditDate = "2026-09-29";
+const checks = {
+  bias:"N/A",
+  privacy:"FAIL",
+  consent:"PASS",
+  attribution:"PASS",
+  transparency:"FAIL"
+};
 
-  function setCheck(name, value, button) {
-    checks[name] = value;
 
-    const parent = button.closest(".toggle");
+/* ---------------- CHECKS ---------------- */
 
-    parent.querySelectorAll("button").forEach(btn => {
-      btn.classList.remove("active");
-    });
+function setCheck(name,value,button){
 
-    button.classList.add("active");
+  checks[name]=value;
 
-    updateSummary();
+  const parent=button.closest(".toggle");
+
+  parent.querySelectorAll("button").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  updateDashboard();
+}
+
+
+/* ---------------- DASHBOARD ---------------- */
+
+function updateDashboard(){
+
+  const values=Object.values(checks);
+
+  const pass=values.filter(v=>v==="PASS").length;
+  const fail=values.filter(v=>v==="FAIL").length;
+  const na=values.filter(v=>v==="N/A").length;
+
+  document.getElementById("passCount").textContent=pass;
+  document.getElementById("failCount").textContent=fail;
+  document.getElementById("naCount").textContent=na;
+
+  const applicable=pass+fail;
+
+  const percentage=applicable
+    ? Math.round((pass/applicable)*100)
+    : 0;
+
+  document.getElementById("score").textContent=percentage+"%";
+  document.getElementById("scoreBar").style.width=percentage+"%";
+
+  const status=document.getElementById("statusText");
+
+  if(fail===0 && applicable>0){
+    status.textContent="All checks passed";
+    status.style.color="var(--green)";
+  }
+  else if(fail<=1){
+    status.textContent="Mostly healthy";
+    status.style.color="var(--yellow)";
+  }
+  else{
+    status.textContent="Needs attention";
+    status.style.color="var(--red)";
   }
 
-  function updateSummary() {
-    const values = Object.values(checks);
+  updateProgress();
+}
 
-    document.getElementById("passCount").textContent =
-      values.filter(v => v === "PASS").length;
 
-    document.getElementById("failCount").textContent =
-      values.filter(v => v === "FAIL").length;
+/* ---------------- PROGRESS ---------------- */
 
-    document.getElementById("naCount").textContent =
-      values.filter(v => v === "N/A").length;
-  }
+function updateProgress(){
 
-  function addRemediation() {
-    const list = document.getElementById("remediationList");
+  const workflowFilled=
+    document.getElementById("workflow").value.trim() &&
+    document.getElementById("tool").value.trim();
 
-    const row = document.createElement("div");
-    row.className = "remediation-row";
+  const riskSelected=
+    document.querySelector('input[name="risk"]:checked');
 
-    row.innerHTML = `
-      <input placeholder="Describe a remediation action..." />
-      <button class="remove" onclick="removeRemediation(this)">×</button>
-    `;
+  const values=Object.values(checks);
+  const hygieneComplete=values.some(v=>v!=="N/A");
 
-    list.appendChild(row);
-  }
+  const remediation=
+    [...document.querySelectorAll("#remediationList input")]
+      .some(input=>input.value.trim());
 
-  function removeRemediation(button) {
-    const rows = document.querySelectorAll(".remediation-row");
+  const states=[
+    true,
+    !!workflowFilled,
+    !!riskSelected,
+    hygieneComplete,
+    remediation
+  ];
 
-    if (rows.length <= 1) {
-      return;
+  let completed=0;
+
+  states.forEach((done,index)=>{
+
+    const step=document.getElementById("p"+(index+1));
+
+    if(done){
+      step.classList.add("done");
+      completed++;
+    }else{
+      step.classList.remove("done");
     }
 
-    button.parentElement.remove();
+  });
+
+  const percentage=Math.max(0,((completed-1)/4)*100);
+
+  document.getElementById("progressFill").style.width=
+    Math.min(100,percentage)+"%";
+}
+
+
+/* ---------------- REMEDIATION ---------------- */
+
+function addRemediation(){
+
+  const list=document.getElementById("remediationList");
+
+  const row=document.createElement("div");
+
+  row.className="remediation-row";
+
+  row.innerHTML=`
+    <input placeholder="Describe a practical remediation action...">
+    <button class="remove" onclick="removeRemediation(this)">×</button>
+  `;
+
+  list.appendChild(row);
+
+  updateProgress();
+}
+
+
+function removeRemediation(button){
+
+  const rows=document.querySelectorAll(".remediation-row");
+
+  if(rows.length<=1){
+    return;
   }
 
-  function getRisk() {
-    const selected = document.querySelector('input[name="risk"]:checked');
-    return selected ? selected.value : "minimal";
-  }
+  button.parentElement.remove();
 
-  function getRiskLabel() {
-    const labels = {
-      unacceptable: "Unacceptable",
-      high: "High-risk",
-      limited: "Limited-risk",
-      minimal: "Minimal"
-    };
+  updateProgress();
+}
 
-    return labels[getRisk()];
-  }
 
-  function getRemediations() {
-    return [...document.querySelectorAll("#remediationList input")]
-      .map(input => input.value.trim())
-      .filter(Boolean);
-  }
+/* ---------------- RISK ---------------- */
 
-  function generateAudit() {
+function getRisk(){
 
-    const workflow = document.getElementById("workflow").value.trim();
-    const tool = document.getElementById("tool").value.trim();
-    const owner = document.getElementById("owner").value.trim();
-    const frequency = document.getElementById("frequency").value;
-    const data = document.getElementById("data").value;
-    const affected = document.getElementById("affected").value.trim();
-    const purpose = document.getElementById("purpose").value.trim();
+  const selected=document.querySelector(
+    'input[name="risk"]:checked'
+  );
 
-    const training = document.getElementById("training").value;
-    const review = document.getElementById("review").value;
-    const literacy = document.getElementById("literacy").value.trim();
+  return selected ? selected.value : "minimal";
+}
 
-    const evidence = {
-      bias: document.getElementById("evidence-bias").value.trim(),
-      privacy: document.getElementById("evidence-privacy").value.trim(),
-      consent: document.getElementById("evidence-consent").value.trim(),
-      attribution: document.getElementById("evidence-attribution").value.trim(),
-      transparency: document.getElementById("evidence-transparency").value.trim()
-    };
 
-    const remediation = getRemediations();
+function getRiskLabel(){
 
-    const slug = workflow
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "") || "ai-workflow";
+  const labels={
+    unacceptable:"Unacceptable",
+    high:"High-risk",
+    limited:"Limited-risk",
+    minimal:"Minimal"
+  };
 
-    let md = `---
+  return labels[getRisk()];
+}
+
+
+/* ---------------- REMEDIATION DATA ---------------- */
+
+function getRemediations(){
+
+  return [...document.querySelectorAll(
+    "#remediationList input"
+  )]
+  .map(input=>input.value.trim())
+  .filter(Boolean);
+
+}
+
+
+/* ---------------- DATE ---------------- */
+
+function getDate(){
+
+  const d=new Date();
+
+  return d.toISOString().slice(0,10);
+
+}
+
+
+/* ---------------- GENERATE MARKDOWN ---------------- */
+
+function generateAudit(){
+
+  const workflow=
+    document.getElementById("workflow").value.trim();
+
+  const tool=
+    document.getElementById("tool").value.trim();
+
+  const owner=
+    document.getElementById("owner").value.trim();
+
+  const frequency=
+    document.getElementById("frequency").value;
+
+  const data=
+    document.getElementById("data").value;
+
+  const affected=
+    document.getElementById("affected").value.trim();
+
+  const purpose=
+    document.getElementById("purpose").value.trim();
+
+  const training=
+    document.getElementById("training").value;
+
+  const review=
+    document.getElementById("review").value;
+
+  const literacy=
+    document.getElementById("literacy").value.trim();
+
+
+  const evidence={
+    bias:document.getElementById("evidence-bias").value.trim(),
+    privacy:document.getElementById("evidence-privacy").value.trim(),
+    consent:document.getElementById("evidence-consent").value.trim(),
+    attribution:document.getElementById("evidence-attribution").value.trim(),
+    transparency:document.getElementById("evidence-transparency").value.trim()
+  };
+
+
+  const remediation=getRemediations();
+
+  const slug=(workflow||"ai-workflow")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-|-$/g,"");
+
+
+  const md=`---
 workflow: ${slug}
 risk_tier: ${getRisk()}
-owner: ${owner || "not-specified"}
-ai_system: ${tool || "not-specified"}
-last_audit: ${auditDate}
+owner: ${owner||"not-specified"}
+ai_system: ${tool||"not-specified"}
+last_audit: ${getDate()}
 ---
 
-# ${workflow || "AI workflow audit"}
+# ${workflow||"AI workflow audit"}
 
 ## Workflow
 
-- **AI system:** ${tool || "Not specified"}
-- **Owner:** ${owner || "Not specified"}
+- **AI system:** ${tool||"Not specified"}
+- **Owner:** ${owner||"Not specified"}
 - **Frequency:** ${frequency}
 - **Information involved:** ${data}
-- **Potentially affected:** ${affected || "Not specified"}
+- **Potentially affected:** ${affected||"Not specified"}
 
 ### Purpose
 
-${purpose || "Not specified"}
+${purpose||"Not specified"}
 
 ## Preliminary risk classification
 
 **${getRiskLabel()}**
 
-This is an educational preliminary classification and is not a legal determination under the EU AI Act.
+This is an educational preliminary classification and is not a legal
+determination under the EU AI Act.
 
 ## Five-point hygiene check
 
-bias:         ${checks.bias.padEnd(5, " ")} - ${evidence.bias || "No evidence recorded."}
-privacy:      ${checks.privacy.padEnd(5, " ")} - ${evidence.privacy || "No evidence recorded."}
-consent:      ${checks.consent.padEnd(5, " ")} - ${evidence.consent || "No evidence recorded."}
-attribution:  ${checks.attribution.padEnd(5, " ")} - ${evidence.attribution || "No evidence recorded."}
-transparency: ${checks.transparency.padEnd(5, " ")} - ${evidence.transparency || "No evidence recorded."}
+bias:         ${checks.bias} - ${evidence.bias||"No evidence recorded."}
+privacy:      ${checks.privacy} - ${evidence.privacy||"No evidence recorded."}
+consent:      ${checks.consent} - ${evidence.consent||"No evidence recorded."}
+attribution:  ${checks.attribution} - ${evidence.attribution||"No evidence recorded."}
+transparency: ${checks.transparency} - ${evidence.transparency||"No evidence recorded."}
+
+## Remediation
+
+${remediation.length
+? remediation.map((item,i)=>`${i+1}. ${item}`).join("\n")
+: "1. No remediation actions recorded."}
 
 ## AI literacy measures
 
@@ -1276,35 +1890,49 @@ transparency: ${checks.transparency.padEnd(5, " ")} - ${evidence.transparency ||
 
 ### Staff should understand
 
-${literacy || "No AI literacy requirements recorded."}
+${literacy||"No AI literacy requirements recorded."}
 
-## Remediation
+## Audit loop
 
-${remediation.length
-  ? remediation.map((item, i) => `${i + 1}. ${item}`).join("\\n")
-  : "1. No remediation actions recorded."}
+### 1. Classify
+
+The workflow was given a preliminary AI Act risk classification.
+
+### 2. Check
+
+The workflow was assessed using the five-point hygiene check:
+bias, privacy, consent/permission, attribution/human ownership,
+and transparency.
+
+### 3. Apply
+
+The remediation section records practical actions intended to
+reduce identified risks and improve responsible AI use.
+
+### 4. Document
+
+This Markdown document records the workflow, checks, evidence,
+remediation actions and AI-literacy measures.
 
 ## Article 4 context
 
-This audit is designed as an educational documentation exercise related to
-Article 4 of the EU AI Act.
+Article 4 of the EU AI Act concerns AI literacy. Providers and
+deployers are required to take measures to support the development
+of AI literacy among staff and other persons dealing with the
+operation and use of AI systems on their behalf.
 
-Current Article 4 requires providers and deployers of AI systems to take
-measures to support the development of AI literacy of staff and other persons
-dealing with the operation and use of AI systems on their behalf, taking into
-account relevant knowledge, experience, education, training, context of use
-and the persons or groups on whom the AI system is used.
+The measures should take account of relevant technical knowledge,
+experience, education and training, the context in which the AI
+system is used, and the people or groups on whom the AI system is
+used.
 
-The amended Article 4 does not require an organisation to guarantee a
-specific level of AI literacy for an individual.
-
-## Sources
+## Official sources
 
 - European Commission:
   https://digital-strategy.ec.europa.eu/en/policies/ai-talent-skills-and-literacy
 
-- EUR-Lex — consolidated EU AI Act:
-  https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1790274055294&uri=CELEX%3A02024R1689-20260727
+- EUR-Lex — EU AI Act:
+  https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
 
 - European Commission — AI Literacy Q&A:
   https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers
@@ -1314,65 +1942,106 @@ specific level of AI literacy for an individual.
 This is general education on the EU AI Act, not legal advice.
 `;
 
-    document.getElementById("auditOutput").value = md;
-    document.getElementById("output").style.display = "block";
 
-    document.getElementById("output").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
+  document.getElementById("auditOutput").value=md;
 
-  function copyAudit() {
-    const output = document.getElementById("auditOutput");
+  document.getElementById("output").style.display="block";
 
-    if (!output.value) {
-      generateAudit();
-    }
-
-    navigator.clipboard.writeText(output.value).then(() => {
-      const success = document.getElementById("success");
-      success.textContent = "Audit copied to your clipboard.";
-      success.style.display = "block";
-
-      setTimeout(() => {
-        success.style.display = "none";
-      }, 2500);
-    });
-  }
-
-  function downloadAudit() {
-    if (!document.getElementById("auditOutput").value) {
-      generateAudit();
-    }
-
-    const content = document.getElementById("auditOutput").value;
-
-    const blob = new Blob([content], {
-      type: "text/markdown;charset=utf-8"
+  document.getElementById("output")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
     });
 
-    const url = URL.createObjectURL(blob);
+}
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "audit.md";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
 
-    URL.revokeObjectURL(url);
+/* ---------------- COPY ---------------- */
+
+function copyAudit(){
+
+  const output=document.getElementById("auditOutput");
+
+  if(!output.value){
+    generateAudit();
   }
 
-  function resetAudit() {
-    if (!confirm("Reset this audit?")) {
-      return;
-    }
+  navigator.clipboard.writeText(output.value)
+    .then(()=>{
 
+      const msg=document.getElementById("copyMessage");
+
+      msg.style.display="block";
+
+      setTimeout(()=>{
+        msg.style.display="none";
+      },2500);
+
+    });
+
+}
+
+
+/* ---------------- DOWNLOAD ---------------- */
+
+function downloadAudit(){
+
+  if(!document.getElementById("auditOutput").value){
+    generateAudit();
+  }
+
+  const content=
+    document.getElementById("auditOutput").value;
+
+  const blob=new Blob(
+    [content],
+    {type:"text/markdown;charset=utf-8"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="audit.md";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* ---------------- RESET ---------------- */
+
+function resetAudit(){
+
+  if(confirm("Reset the audit and return to the example workflow?")){
     location.reload();
   }
 
-  updateSummary();
+}
+
+
+/* ---------------- LIVE PROGRESS ---------------- */
+
+document.querySelectorAll(
+  "input,textarea,select"
+).forEach(element=>{
+
+  element.addEventListener("input",updateProgress);
+  element.addEventListener("change",updateProgress);
+
+});
+
+
+updateDashboard();
+updateProgress();
+
 </script>
 
 </body>
